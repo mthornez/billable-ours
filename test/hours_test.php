@@ -42,5 +42,17 @@ class HoursForm extends WebTestCase {
 		$this->assertText("You can't enter 0 for rate.");
 	}
 	
+	function testDecimalData() {
+		$this->get(VIRTUAL_PATH . '/hours.php');
+		$this->assertResponse(200);
+
+    		$this->setField("hours", "1.5");
+		$this->setField("rate", "50");
+		$this->clickSubmit("Show Pay");
+
+		$this->assertResponse(200);
+		$this->assertText("You input 1.5 hours at a rate of $50 and your pay is $75");
+	}
+	
 
 }
